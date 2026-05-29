@@ -33,7 +33,7 @@ Run the app:
 ## Project structure
 
 ```
-praHangineCode/
+praHangine/
 ├── CMakeLists.txt          # root build config
 ├── external/
 │   ├── glfw/               # window and input (submodule)

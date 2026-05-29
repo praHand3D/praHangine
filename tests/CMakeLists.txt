@@ -1,5 +1,5 @@
 add_executable(tests
-#    math/
+    math/placeholder.cpp
 )
 
 target_link_libraries(tests

@@ -1,6 +1,6 @@
 #include <cstdio>
 
-int main() {
+int prahangine() {
     printf("Hello, world!\n");
     return 0;
 }

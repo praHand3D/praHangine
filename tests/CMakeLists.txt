@@ -1,5 +1,6 @@
 add_executable(tests
     math/placeholder.cpp
+    assets/PR4_asset_tests.cpp
 )
 
 target_link_libraries(tests

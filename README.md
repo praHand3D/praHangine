@@ -30,29 +30,6 @@ Run the app:
 ./cmake-build-debug/bin/app
 ```
 
-## Project structure
-
-```
-praHangine/
-├── CMakeLists.txt          # root build config
-├── external/
-│   ├── glfw/               # window and input (submodule)
-│   └── googletest/         # unit testing (submodule)
-├── include/
-│   └── prahangine/         # public engine headers
-│       ├── core/
-│       ├── input/
-│       ├── math/
-│       └── render/
-├── src/                    # engine implementation
-│   ├── core/
-│   ├── input/
-│   ├── math/
-│   └── render/
-├── app/                    # application using the engine
-│   └── main.cpp
-└── tests/                  # GoogleTest unit tests
-```
 
 ## Dependencies
 

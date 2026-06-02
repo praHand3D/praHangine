@@ -1,6 +1,8 @@
 #pragma once
 
 #include <vector>
+
+#include "prahangine/math/Transform.h"
 #include "prahangine/math/Vec.h"
 
 struct Header {
@@ -28,15 +30,11 @@ struct Mesh {
 struct Object {
     uint8_t id;
     uint8_t mesh_ref;
-    Vec3 position;
-    Vec4 rotation;
-    Vec3 scale;
+    Transform transform;
 };
 
 struct Keyframe {
-    Vec3 position;
-    Vec4 rotation;
-    Vec3 scale;
+    Transform transform;
 };
 
 struct Animation {

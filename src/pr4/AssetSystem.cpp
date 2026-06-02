@@ -71,9 +71,9 @@ PR4_LOAD_ERROR AssetSystem::load(const char* path) {
 
         if (!file.read(reinterpret_cast<char*>(&object.id), 1) ||
             !file.read(reinterpret_cast<char*>(&object.mesh_ref), 1) ||
-            !file.read(reinterpret_cast<char*>(&object.position), 12) ||
-            !file.read(reinterpret_cast<char*>(&object.rotation), 16) ||
-            !file.read(reinterpret_cast<char*>(&object.scale),  12))
+            !file.read(reinterpret_cast<char*>(&object.transform.position), 12) ||
+            !file.read(reinterpret_cast<char*>(&object.transform.rotation), 16) ||
+            !file.read(reinterpret_cast<char*>(&object.transform.scale),  12))
             return PR4_LOAD_ERROR::SOMETHING_WRONG;
 
         this->objects.push_back(object);
@@ -95,9 +95,9 @@ PR4_LOAD_ERROR AssetSystem::load(const char* path) {
         for (uint16_t k=0; k<keyframe_count; k++) {
             Keyframe keyframe = Keyframe();
 
-            if (!file.read(reinterpret_cast<char*>(&keyframe.position), 12) ||
-                !file.read(reinterpret_cast<char*>(&keyframe.rotation), 16) ||
-                !file.read(reinterpret_cast<char*>(&keyframe.scale), 12))
+            if (!file.read(reinterpret_cast<char*>(&keyframe.transform.position), 12) ||
+                !file.read(reinterpret_cast<char*>(&keyframe.transform.rotation), 16) ||
+                !file.read(reinterpret_cast<char*>(&keyframe.transform.scale), 12))
                     return PR4_LOAD_ERROR::SOMETHING_WRONG;
 
             animation.keyframes.push_back(keyframe);
@@ -156,9 +156,9 @@ PR4_WRITER_ERROR AssetSystem::write(const char *path) {
 
         if (!file.write(reinterpret_cast<const std::ostream::char_type *>(&object.id), 1) ||
             !file.write(reinterpret_cast<const std::ostream::char_type *>(&object.mesh_ref), 1) ||
-            !file.write(reinterpret_cast<const std::ostream::char_type *>(&object.position), 12) ||
-            !file.write(reinterpret_cast<const std::ostream::char_type *>(&object.rotation), 16) ||
-            !file.write(reinterpret_cast<const std::ostream::char_type *>(&object.scale), 12))
+            !file.write(reinterpret_cast<const std::ostream::char_type *>(&object.transform.position), 12) ||
+            !file.write(reinterpret_cast<const std::ostream::char_type *>(&object.transform.rotation), 16) ||
+            !file.write(reinterpret_cast<const std::ostream::char_type *>(&object.transform.scale), 12))
             return PR4_WRITER_ERROR::SOMETHING_WRONG;
     }
 
@@ -173,9 +173,9 @@ PR4_WRITER_ERROR AssetSystem::write(const char *path) {
             return PR4_WRITER_ERROR::SOMETHING_WRONG;
 
         for (uint16_t k=0; k<keyframe_count; k++)
-            if (!file.write(reinterpret_cast<const std::ostream::char_type *>(&animation.keyframes[k].position), 12) ||
-                !file.write(reinterpret_cast<const std::ostream::char_type *>(&animation.keyframes[k].rotation), 16) ||
-                !file.write(reinterpret_cast<const std::ostream::char_type *>(&animation.keyframes[k].scale), 12))
+            if (!file.write(reinterpret_cast<const std::ostream::char_type *>(&animation.keyframes[k].transform.position), 12) ||
+                !file.write(reinterpret_cast<const std::ostream::char_type *>(&animation.keyframes[k].transform.rotation), 16) ||
+                !file.write(reinterpret_cast<const std::ostream::char_type *>(&animation.keyframes[k].transform.scale), 12))
                 return PR4_WRITER_ERROR::SOMETHING_WRONG;
     }
 

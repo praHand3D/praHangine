@@ -1,6 +1,7 @@
 add_library(prahangine
     prahangine.cpp
     pr4/AssetSystem.cpp
+        math/Matrix.cpp
 )
 
 target_include_directories(prahangine

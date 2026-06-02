@@ -1,5 +1,5 @@
 add_executable(tests
-    math/placeholder.cpp
+    math/Matrix.cpp
     assets/PR4_asset_tests.cpp
 )
 

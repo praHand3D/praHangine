@@ -37,10 +37,10 @@ void createCube() {
 
     Transform transform = Transform(
         Vec3(-0.5, -0.5, -0.5),
-        Vec4(0,0,0,0),
+        Vec4(0,0,0,1),
         Vec3(1,1,1));
 
-    Object object = Object(1, 1, transform);
+    Object object = Object(1, 1, transform); // nie wiem czy mesh_ref powinien byc od 0 czy 1
     writer.header.object_count = 1;
     writer.objects.push_back(object);
 

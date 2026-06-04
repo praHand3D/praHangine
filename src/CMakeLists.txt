@@ -4,6 +4,7 @@ add_library(prahangine
     math/Matrix.cpp
     utils/createCube.cpp
     config.cpp
+    render/shaders.cpp
 )
 
 target_include_directories(prahangine

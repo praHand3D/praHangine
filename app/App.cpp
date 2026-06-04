@@ -3,12 +3,15 @@
 
 #include "App.h"
 #include "prahangine/config.h"
+#include "prahangine/camera/Camera.h"
 #include "prahangine/input/callback.h"
 
 
 App::App() {}
 
 bool App::init() {
+    initCamera();
+
     if (!initWindow())
         return false;
 
@@ -25,7 +28,7 @@ void App::run() {
         glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        renderer.render(sceneObject, VAO);
+        renderer.render(sceneObject, VAO, camera);
 
         glfwSwapBuffers(window);
     }
@@ -70,4 +73,20 @@ bool App::initScene() {
     this->VAO = renderer.uploadMesh(sceneObject.mesh);
 
     return true;
+}
+
+void App::initCamera() {
+    Vec3 position = Vec3(0, 0, 3);
+    Vec3 up = Vec3(0, 1, 0);
+    Vec3 target = Vec3(0, 0, 0);
+
+    camera = Camera(position, up, target);
+    camera.buildViewMatrix();
+
+    float fov = 44.0f * M_PI / 180.0f;
+    float aspectRatio = 1.f;
+    float near = 0.1f;
+    float far = 100.f;
+
+    camera.buildProjectionMatrix(fov, aspectRatio, near, far);
 }

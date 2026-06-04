@@ -1,5 +1,6 @@
 #pragma once
 #include "GLFW/glfw3.h"
+#include "prahangine/camera/Camera.h"
 #include "prahangine/pr4/AssetSystem.h"
 #include "prahangine/render/Renderer.h"
 
@@ -16,7 +17,9 @@ private:
     AssetSystem assetSystem;
     SceneObject sceneObject;
     GLuint VAO;
+    Camera camera;
 
     bool initWindow();
     bool initScene();
+    void initCamera();
 };

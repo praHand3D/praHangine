@@ -9,11 +9,19 @@ bool Renderer::init(GLFWwindow *window) {
     return loadShader();
 }
 
-void Renderer::render(SceneObject& sceneObject, GLuint& VAO) {
+void Renderer::render(SceneObject& sceneObject, GLuint& VAO, Camera &camera) {
     glUseProgram(shaderProgram);
     glBindVertexArray(VAO);
-    GLint loc = glGetUniformLocation(shaderProgram, "modelMatrix");
-    glUniformMatrix4fv(loc, 1, GL_TRUE, &sceneObject.modelMatrix.data[0][0]);
+
+    GLint modelMatrixLoc = glGetUniformLocation(shaderProgram, "modelMatrix");
+    glUniformMatrix4fv(modelMatrixLoc, 1, GL_TRUE, &sceneObject.modelMatrix.data[0][0]);
+
+    GLint viewMatrixLoc = glGetUniformLocation(shaderProgram, "viewMatrix");
+    glUniformMatrix4fv(viewMatrixLoc, 1, GL_TRUE, &camera.view.data[0][0]);
+
+    GLint projectionMatrixLoc = glGetUniformLocation(shaderProgram, "projectionMatrix");
+    glUniformMatrix4fv(projectionMatrixLoc, 1, GL_TRUE, &camera.projection.data[0][0]);
+
     glDrawElements(GL_TRIANGLES, sceneObject.mesh.indices.size() * 3, GL_UNSIGNED_SHORT, 0);
     glBindVertexArray(0);
 }

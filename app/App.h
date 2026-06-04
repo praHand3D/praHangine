@@ -10,6 +10,7 @@ public:
     App();
     bool init();
     void run();
+    void update(float deltaTime);
 
 private:
     GLFWwindow* window;

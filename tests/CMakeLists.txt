@@ -1,7 +1,6 @@
-add_executable(tests
-    math/Matrix.cpp
-    assets/PR4_asset_tests.cpp
-)
+file(GLOB_RECURSE TEST_SOURCES CONFIGURE_DEPENDS "*_tests.cpp")
+
+add_executable(tests ${TEST_SOURCES})
 
 target_link_libraries(tests
     PRIVATE prahangine

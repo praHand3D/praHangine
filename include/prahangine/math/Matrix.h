@@ -6,7 +6,7 @@ struct Matrix4x4 {
     float data[4][4];
 };
 
-Matrix4x4 multipy(Matrix4x4 m1, Matrix4x4 m2);
+Matrix4x4 multiply(Matrix4x4 m1, Matrix4x4 m2);
 
 Matrix4x4 buildModelMatrix(const Transform& transform);
 

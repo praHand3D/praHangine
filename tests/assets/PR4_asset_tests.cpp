@@ -5,7 +5,7 @@
 #include "prahangine/pr4/AssetSystem.h"
 #include "prahangine/pr4/errors.h"
 
-std::string ASSET_TEST_DIR = "/Users/praoliwia/Desktop/praProjects/praHand3D/praHangine/praHangineCode/data/test/";
+const std::string ASSET_TEST_DIR = DATA_PATH + "test/";
 
 TEST(PR4_WRITE, WRITE_DATA_PROBLEM) {
     AssetSystem assetSystem;
@@ -13,19 +13,9 @@ TEST(PR4_WRITE, WRITE_DATA_PROBLEM) {
     Mesh mesh;
     mesh.id = 1;
 
-    Vertex v1 = Vertex();
-    v1.position = {1.0f, 2.0f, 3.0f};
-    mesh.vertexes.push_back(v1);
-
-    Vertex v2 = Vertex();
-    v2.position = {4.0f, 5.0f, 6.0f};
-    mesh.vertexes.push_back(v2);
-
-    Index idx = Index();
-    idx.vertexes_index[0] = 0;
-    idx.vertexes_index[1] = 1;
-    idx.vertexes_index[2] = 0;
-    mesh.indices.push_back(idx);
+    mesh.vertexes.emplace_back(1.0f, 2.0f, 3.0f);
+    mesh.vertexes.emplace_back(4.0f, 5.0f, 6.0f);
+    mesh.indices.emplace_back(0, 1, 0);
 
     assetSystem.meshes.push_back(mesh);
     assetSystem.header.mesh_count = 1;
@@ -38,7 +28,7 @@ TEST(PR4_WRITE, EMPTY_DATA) {
     std::string path = ASSET_TEST_DIR + "test.PR4";
     EXPECT_EQ(AssetSystem().write(path.c_str()), PR4_WRITER_ERROR::OK);
 
-    AssetSystem assetSystem = AssetSystem();
+    AssetSystem assetSystem;
     EXPECT_EQ(assetSystem.load(path.c_str()), PR4_LOAD_ERROR::OK);
 
     EXPECT_EQ(assetSystem.header.mesh_count, 0);
@@ -60,19 +50,9 @@ TEST(PR4_LOAD, PASS) {
 
     Mesh mesh;
     mesh.id = 1;
-    Vertex v1 = Vertex();
-    v1.position = {1.0f, 2.0f, 3.0f};
-    mesh.vertexes.push_back(v1);
-
-    Vertex v2 = Vertex();
-    v2.position = {4.0f, 5.0f, 6.0f};
-    mesh.vertexes.push_back(v2);
-
-    Index idx = Index();
-    idx.vertexes_index[0] = 0;
-    idx.vertexes_index[1] = 1;
-    idx.vertexes_index[2] = 0;
-    mesh.indices.push_back(idx);
+    mesh.vertexes.emplace_back(1.0f, 2.0f, 3.0f);
+    mesh.vertexes.emplace_back(4.0f, 5.0f, 6.0f);
+    mesh.indices.emplace_back(0, 1, 0);
 
     writer.meshes.push_back(mesh);
     writer.header.mesh_count = 1;
@@ -116,7 +96,6 @@ TEST(PR4_LOAD, BAD_VERSION) {
     std::ofstream file(path, std::ios::binary);
     file.write(reinterpret_cast<const char*>(PR4_MAGIC), 4);
     uint8_t bad_version = 99;
-
     file.write(reinterpret_cast<const char*>(&bad_version), 1);
     file.close();
 

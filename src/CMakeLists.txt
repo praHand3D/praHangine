@@ -1,8 +1,6 @@
-add_library(prahangine
-    prahangine.cpp
-    pr4/AssetSystem.cpp
-        math/Matrix.cpp
-)
+file(GLOB_RECURSE PRAHANGINE_SOURCES CONFIGURE_DEPENDS "*.cpp")
+
+add_library(prahangine ${PRAHANGINE_SOURCES})
 
 target_include_directories(prahangine
     PUBLIC ${CMAKE_SOURCE_DIR}/include
@@ -11,4 +9,5 @@ target_include_directories(prahangine
 
 target_link_libraries(prahangine
     PUBLIC glfw
+    PUBLIC glad
 )

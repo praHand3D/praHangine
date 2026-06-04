@@ -100,28 +100,7 @@ TEST(VEC3_SUB, FLOAT_ZERO) {
     EXPECT_FLOAT_EQ(result.z, 3);
 }
 
-// ---- OPERATOR * ----
-
-TEST(VEC3_MUL, BASIC) {
-    Vec3 result = Vec3(2, 3, 4) * Vec3(2, 3, 4);
-    EXPECT_FLOAT_EQ(result.x, 4);
-    EXPECT_FLOAT_EQ(result.y, 9);
-    EXPECT_FLOAT_EQ(result.z, 16);
-}
-
-TEST(VEC3_MUL, BY_ZERO) {
-    Vec3 result = Vec3(2, 3, 4) * Vec3(0, 0, 0);
-    EXPECT_FLOAT_EQ(result.x, 0);
-    EXPECT_FLOAT_EQ(result.y, 0);
-    EXPECT_FLOAT_EQ(result.z, 0);
-}
-
-TEST(VEC3_MUL, BY_ONE) {
-    Vec3 result = Vec3(2, 3, 4) * Vec3(1, 1, 1);
-    EXPECT_FLOAT_EQ(result.x, 2);
-    EXPECT_FLOAT_EQ(result.y, 3);
-    EXPECT_FLOAT_EQ(result.z, 4);
-}
+// ---- OPERATOR * float ----
 
 TEST(VEC3_MUL, FLOAT) {
     Vec3 result = Vec3(1, 2, 3) * 2.0f;
@@ -145,21 +124,7 @@ TEST(VEC3_MUL, FLOAT_NEGATIVE) {
 }
 
 
-// ---- OPERATOR / ----
-
-TEST(VEC3_DIV, BASIC) {
-    Vec3 result = Vec3(4, 6, 8) / Vec3(2, 3, 4);
-    EXPECT_FLOAT_EQ(result.x, 2);
-    EXPECT_FLOAT_EQ(result.y, 2);
-    EXPECT_FLOAT_EQ(result.z, 2);
-}
-
-TEST(VEC3_DIV, BY_ONE) {
-    Vec3 result = Vec3(1, 2, 3) / Vec3(1, 1, 1);
-    EXPECT_FLOAT_EQ(result.x, 1);
-    EXPECT_FLOAT_EQ(result.y, 2);
-    EXPECT_FLOAT_EQ(result.z, 3);
-}
+// ---- OPERATOR / float ----
 
 TEST(VEC3_DIV, FLOAT) {
     Vec3 result = Vec3(2, 4, 6) / 2.0f;

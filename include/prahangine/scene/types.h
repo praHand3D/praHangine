@@ -11,6 +11,8 @@ struct SceneObject {
     Matrix4x4 modelMatrix;
     // scene position, pivot point?
 
+    SceneObject() {}
+
     SceneObject(Object object, Mesh mesh) : object(object), mesh(mesh) {
         modelMatrix = buildModelMatrix(object.transform);
     };

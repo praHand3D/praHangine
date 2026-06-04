@@ -8,7 +8,7 @@
 #include "prahangine/config.h"
 
 
-std::string loadShader(const char* path) {
+std::string loadShaderAsString(const char* path) {
     std::string shaderPath = DATA_PATH + std::string(path);
 
     std::ifstream file(shaderPath);

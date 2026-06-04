@@ -5,6 +5,7 @@ add_library(prahangine
     utils/createCube.cpp
     config.cpp
     render/shaders.cpp
+    render/Renderer.cpp
 )
 
 target_include_directories(prahangine

@@ -6,9 +6,7 @@
 
 
 bool Renderer::init(GLFWwindow *window) {
-    loadShader();
-
-    return true;
+    return loadShader();
 }
 
 void Renderer::render(SceneObject& sceneObject, GLuint& VAO) {
@@ -47,11 +45,15 @@ GLuint Renderer::uploadMesh(const Mesh& mesh) {
     return VAO;
 }
 
-void Renderer::loadShader() {
+bool Renderer::loadShader() {
     GLuint vertexShader;
     GLuint fragmentShader;
 
     std::string vertexShaderSource = loadShaderAsString("shaders/vertex.glsl");
+
+    if (vertexShaderSource == "")
+        return false;
+
     const char* vertexShaderText = vertexShaderSource.c_str();
 
     vertexShader = glCreateShader(GL_VERTEX_SHADER);
@@ -59,6 +61,10 @@ void Renderer::loadShader() {
     glCompileShader(vertexShader);
 
     std::string fragmentShaderSource = loadShaderAsString("shaders/fragment.glsl");
+
+    if (fragmentShaderSource == "")
+        return false;
+
     const char* fragmentShaderText = fragmentShaderSource.c_str();
 
     fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
@@ -79,5 +85,8 @@ void Renderer::loadShader() {
         char log[512];
         glGetProgramInfoLog(shaderProgram, 512, NULL, log);
         printf("Shader program link error: %s\n", log);
+        return false;
     }
+
+    return true;
 }

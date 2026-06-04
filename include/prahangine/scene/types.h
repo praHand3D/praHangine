@@ -1,5 +1,7 @@
 #pragma once
 
+#include <optional>
+
 #include "prahangine/math/Matrix.h"
 #include "prahangine/pr4/types.h"
 

@@ -106,7 +106,7 @@ TEST(MATRIX_MULTIPLY, IDENTITY_TIMES_IDENTITY) {
         {0, 0, 1, 0},
         {0, 0, 0, 1}
     }};
-    Matrix4x4 result = multipy(identity, identity);
+    Matrix4x4 result = multiply(identity, identity);
     for (int r = 0; r < 4; r++)
         for (int c = 0; c < 4; c++)
             EXPECT_FLOAT_EQ(result.data[r][c], identity.data[r][c]);
@@ -121,7 +121,7 @@ TEST(MATRIX_MULTIPLY, TRANSLATION_TIMES_IDENTITY) {
         {0, 0, 1, 0},
         {0, 0, 0, 1}
     }};
-    Matrix4x4 result = multipy(t, identity);
+    Matrix4x4 result = multiply(t, identity);
     EXPECT_FLOAT_EQ(result.data[0][3], 1.0f);
     EXPECT_FLOAT_EQ(result.data[1][3], 2.0f);
     EXPECT_FLOAT_EQ(result.data[2][3], 3.0f);

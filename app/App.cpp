@@ -2,18 +2,36 @@
 #include <GLFW/glfw3.h>
 
 #include "App.h"
-
 #include "prahangine/config.h"
+#include "prahangine/input/callback.h"
 
-
-void escapePressCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
-    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-        glfwSetWindowShouldClose(window, GL_TRUE);
-}
 
 App::App() {}
 
 bool App::init() {
+    if (!initWindow())
+        return false;
+
+    if (!initScene())
+        return false;
+
+    return true;
+}
+
+void App::run() {
+    while (!glfwWindowShouldClose(window)) {
+        glfwPollEvents();
+
+        glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
+
+        renderer.render(sceneObject, VAO);
+
+        glfwSwapBuffers(window);
+    }
+}
+
+bool App::initWindow() {
     if (!glfwInit())
         return false;
 
@@ -34,6 +52,10 @@ bool App::init() {
 
     glfwSetKeyCallback(window, escapePressCallback);
 
+    return true;
+}
+
+bool App::initScene() {
     this->renderer = Renderer();
 
     if (!renderer.init(this->window))
@@ -48,17 +70,4 @@ bool App::init() {
     this->VAO = renderer.uploadMesh(sceneObject.mesh);
 
     return true;
-}
-
-void App::run() {
-    while (!glfwWindowShouldClose(window)) {
-        glfwPollEvents();
-
-        glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
-
-        renderer.render(sceneObject, VAO);
-
-        glfwSwapBuffers(window);
-    }
 }

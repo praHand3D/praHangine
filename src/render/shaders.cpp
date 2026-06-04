@@ -15,6 +15,7 @@ std::string loadShaderAsString(const char* path) {
 
     if (!file.is_open()) {
         std::cerr << "Could not open " << shaderPath << std::endl;
+        return "";
     }
 
     std::stringstream buffer;

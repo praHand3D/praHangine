@@ -16,4 +16,7 @@ private:
     AssetSystem assetSystem;
     SceneObject sceneObject;
     GLuint VAO;
+
+    bool initWindow();
+    bool initScene();
 };

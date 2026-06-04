@@ -45,5 +45,15 @@ Vec3 operator*(const Vec3 &v1, float value) {
 
 Vec3 operator/(const Vec3 &v1, float value) {
     return {v1.x / value, v1.y / value, v1.z / value};
+}
+
+
+Vec4 Vec4::multiplyQuaternions(const Vec4 &q1, const Vec4 &q2) {
+    return {
+        q1.w*q2.x + q1.x*q2.w + q1.y*q2.z - q1.z*q2.y,
+        q1.w*q2.y - q1.x*q2.z + q1.y*q2.w + q1.z*q2.x,
+        q1.w*q2.z + q1.x*q2.y - q1.y*q2.x + q1.z*q2.w,
+        q1.w*q2.w - q1.x*q2.x - q1.y*q2.y - q1.z*q2.z
+    };
 };
 

@@ -22,8 +22,14 @@ bool App::init() {
 }
 
 void App::run() {
+    float lastTime = 0.0f;
+
     while (!glfwWindowShouldClose(window)) {
         glfwPollEvents();
+
+        float deltaTime = glfwGetTime() - lastTime;
+        update(deltaTime);
+        lastTime = glfwGetTime();
 
         glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
@@ -32,6 +38,20 @@ void App::run() {
 
         glfwSwapBuffers(window);
     }
+}
+
+void App::update(float deltaTime) {
+    float speed = 1.0f;
+    float angle = deltaTime * speed;
+
+    float s = std::sin(angle / 2.0f);
+    float c = std::cos(angle / 2.0f);
+
+    Vec4 delta = {0, s, 0, c};
+
+    sceneObject.object.transform.rotation = Vec4::multiplyQuaternions(sceneObject.object.transform.rotation, delta);
+
+    sceneObject.updateModelMatrix();
 }
 
 bool App::initWindow() {

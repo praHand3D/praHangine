@@ -12,6 +12,7 @@ struct Camera {
     Matrix4x4 view{};
     Matrix4x4 projection{};
 
+    Camera() {}
     Camera(Vec3 position, Vec3 up, Vec3 target) : position(position), up(up), target(target) {}
 
     void buildViewMatrix();

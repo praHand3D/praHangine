@@ -11,7 +11,7 @@ void Camera::buildViewMatrix() {
     view = Matrix4x4{{
         {right.x, right.y, right.z, -Vec3::dot(right, position)},
         {up_corrected.x, up_corrected.y, up_corrected.z, -Vec3::dot(up_corrected, position)},
-        {-forward.x, -forward.y, -forward.z, -Vec3::dot(forward, position)},
+        {-forward.x, -forward.y, -forward.z, Vec3::dot(forward, position)},
         {0, 0, 0, 1}
     }};
 }

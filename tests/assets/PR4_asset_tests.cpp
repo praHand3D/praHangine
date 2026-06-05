@@ -1,9 +1,8 @@
 #include <fstream>
 
 #include "gtest/gtest.h"
-#include "prahangine/config.h"
-#include "prahangine/pr4/AssetSystem.h"
-#include "prahangine/pr4/errors.h"
+#include "pr4/config.h"
+#include "pr4/AssetSystem.h"
 
 const std::string ASSET_TEST_DIR = DATA_PATH + "test/";
 

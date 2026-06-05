@@ -1,7 +1,7 @@
 #pragma once
 
-#include "prahangine/math/Matrix.h"
-#include "prahangine/math/Vec.h"
+#include "math/Matrix.h"
+#include "math/Vec.h"
 
 
 struct Camera {

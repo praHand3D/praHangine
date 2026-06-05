@@ -1,7 +1,7 @@
 #pragma once
 #include "GLFW/glfw3.h"
 #include "prahangine/camera/Camera.h"
-#include "prahangine/pr4/AssetSystem.h"
+#include "pr4/AssetSystem.h"
 #include "prahangine/render/Renderer.h"
 
 

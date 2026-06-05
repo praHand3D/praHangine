@@ -2,7 +2,7 @@
 #include <GLFW/glfw3.h>
 
 #include "App.h"
-#include "prahangine/config.h"
+#include "pr4/config.h"
 #include "prahangine/camera/Camera.h"
 #include "prahangine/input/callback.h"
 

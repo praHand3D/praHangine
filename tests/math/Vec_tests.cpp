@@ -1,6 +1,7 @@
-#include "gtest/gtest.h"
-#include "prahangine/math/Vec.h"
 #include <cmath>
+#include "gtest/gtest.h"
+#include "math/Vec.h"
+
 
 // ---- CONSTRUCTORS ----
 

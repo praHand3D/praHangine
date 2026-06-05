@@ -2,8 +2,8 @@
 
 #include <optional>
 
-#include "prahangine/math/Matrix.h"
-#include "prahangine/pr4/types.h"
+#include "math/Matrix.h"
+#include "pr4/types.h"
 
 
 struct SceneObject {

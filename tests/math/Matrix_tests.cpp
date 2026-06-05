@@ -1,5 +1,7 @@
 #include "gtest/gtest.h"
-#include "prahangine/math/Matrix.h"
+#include "math/Matrix.h"
+#include "math/Vec.h"
+
 
 // ---- TRANSLATION ----
 

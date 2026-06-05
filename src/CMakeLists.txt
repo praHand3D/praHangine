@@ -10,4 +10,6 @@ target_include_directories(prahangine
 target_link_libraries(prahangine
     PUBLIC glfw
     PUBLIC glad
+    PUBLIC math
+    PRIVATE pr4
 )

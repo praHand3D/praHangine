@@ -5,6 +5,7 @@ add_executable(app
 
 target_link_libraries(app
     PRIVATE prahangine
+    PRIVATE pr4
 )
 
 add_executable(sandbox
@@ -13,4 +14,5 @@ add_executable(sandbox
 
 target_link_libraries(sandbox
     PRIVATE prahangine
+    PRIVATE pr4
 )

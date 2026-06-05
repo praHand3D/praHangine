@@ -4,3 +4,9 @@
 [submodule "external/googletest"]
 	path = external/googletest
 	url = https://github.com/google/googletest
+[submodule "external/praPR4"]
+	path = external/praPR4
+	url = git@github.com:praHand3D/praPR4.git
+[submodule "external/praMath"]
+	path = external/praMath
+	url = git@github.com:praHand3D/praMath.git

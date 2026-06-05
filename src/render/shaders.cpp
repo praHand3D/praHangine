@@ -1,11 +1,9 @@
 #include <sstream>
 #include <fstream>
-
-#include "prahangine/render/shaders.h"
-
 #include <iostream>
 
-#include "prahangine/config.h"
+#include "prahangine/render/shaders.h"
+#include "pr4/config.h"
 
 
 std::string loadShaderAsString(const char* path) {

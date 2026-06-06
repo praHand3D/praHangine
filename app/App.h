@@ -11,6 +11,9 @@ public:
     bool init();
     void run();
     void update(float deltaTime);
+    void restart();
+
+    static void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 
 private:
     GLFWwindow* window;

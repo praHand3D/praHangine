@@ -4,7 +4,6 @@
 #include "App.h"
 #include "pr4/config.h"
 #include "prahangine/camera/Camera.h"
-#include "prahangine/input/callback.h"
 
 
 App::App() {}
@@ -41,17 +40,24 @@ void App::run() {
 }
 
 void App::update(float deltaTime) {
-    float speed = 1.0f;
-    float angle = deltaTime * speed;
+    if (sceneObject.animation && sceneObject.animation->enabled) {
+        Transform t = sceneObject.animation->updateAnimation(deltaTime);
+        sceneObject.object.transform = t;
+        sceneObject.updateModelMatrix();
+    }
+}
 
-    float s = std::sin(angle / 2.0f);
-    float c = std::cos(angle / 2.0f);
+void App::restart() {
+    if (sceneObject.animation)
+        sceneObject.animation->restartAnimation();
+}
 
-    Vec4 delta = {0, s, 0, c};
-
-    sceneObject.object.transform.rotation = Vec4::multiplyQuaternions(sceneObject.object.transform.rotation, delta);
-
-    sceneObject.updateModelMatrix();
+void App::keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+    App* app = static_cast<App*>(glfwGetWindowUserPointer(window));
+    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+        glfwSetWindowShouldClose(window, GL_TRUE);
+    if (key == GLFW_KEY_SPACE && action == GLFW_PRESS)
+        app->restart();
 }
 
 bool App::initWindow() {
@@ -70,10 +76,11 @@ bool App::initWindow() {
         return false;
     }
 
+    glfwSetWindowUserPointer(window, this);
+    glfwSetKeyCallback(window, App::keyCallback);
+
     glfwMakeContextCurrent(window);
     gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-
-    glfwSetKeyCallback(window, escapePressCallback);
 
     return true;
 }
@@ -85,10 +92,13 @@ bool App::initScene() {
         return false;
 
     this->assetSystem = AssetSystem();
-    std::string dataPathString = DATA_PATH + "cube.PR4";
+    std::string dataPathString = DATA_PATH + "rotated_spot2.PR4";
     assetSystem.load(dataPathString.c_str());
 
     this->sceneObject = SceneObject(assetSystem.objects[0], assetSystem.meshes[0]);
+
+    if (assetSystem.animations.size() > 0)
+        this->sceneObject.animation = SceneAnimation(assetSystem.animations[0]);
 
     this->VAO = renderer.uploadMesh(sceneObject.mesh);
 

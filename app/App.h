@@ -19,8 +19,8 @@ private:
     GLFWwindow* window;
     Renderer renderer;
     AssetSystem assetSystem;
-    SceneObject sceneObject;
-    GLuint VAO;
+    std::vector<SceneObject> sceneObjects;
+    std::vector<GLuint> VAOs;
     Camera camera;
 
     bool initWindow();

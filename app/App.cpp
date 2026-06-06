@@ -33,23 +33,28 @@ void App::run() {
         glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        renderer.render(sceneObject, VAO, camera);
+        for (int i = 0; i < sceneObjects.size(); i++) {
+            renderer.render(sceneObjects[i], VAOs[i], camera);
+        }
 
         glfwSwapBuffers(window);
     }
 }
 
 void App::update(float deltaTime) {
-    if (sceneObject.animation && sceneObject.animation->enabled) {
-        Transform t = sceneObject.animation->updateAnimation(deltaTime);
-        sceneObject.object.transform = t;
-        sceneObject.updateModelMatrix();
+    for (SceneObject& sceneObject : sceneObjects) {
+        if (sceneObject.animation && sceneObject.animation->enabled) {
+            Transform t = sceneObject.animation->updateAnimation(deltaTime);
+            sceneObject.object.transform = t;
+            sceneObject.updateModelMatrix();
+        }
     }
 }
 
 void App::restart() {
-    if (sceneObject.animation)
-        sceneObject.animation->restartAnimation();
+    for (SceneObject& sceneObject : sceneObjects)
+        if (sceneObject.animation)
+            sceneObject.animation->restartAnimation();
 }
 
 void App::keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
@@ -69,7 +74,7 @@ bool App::initWindow() {
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
-    this->window = glfwCreateWindow(444, 444, "praHangine", NULL, NULL);
+    this->window = glfwCreateWindow(1400, 800, "praHangine", NULL, NULL);
 
     if (!this->window) {
         glfwTerminate();
@@ -92,15 +97,22 @@ bool App::initScene() {
         return false;
 
     this->assetSystem = AssetSystem();
-    std::string dataPathString = DATA_PATH + "rotated_spot2.PR4";
+    std::string dataPathString = DATA_PATH + "obr.PR4";
     assetSystem.load(dataPathString.c_str());
 
-    this->sceneObject = SceneObject(assetSystem.objects[0], assetSystem.meshes[0]);
+    for (Object& obj : assetSystem.objects) {
+        Mesh& mesh = assetSystem.meshes.at(obj.mesh_ref);
+        SceneObject scene_object = SceneObject(obj, mesh);
 
-    if (assetSystem.animations.size() > 0)
-        this->sceneObject.animation = SceneAnimation(assetSystem.animations[0]);
+        for (Animation& anim : assetSystem.animations)
+            if (anim.object_ref == obj.id)
+                scene_object.animation = anim;
 
-    this->VAO = renderer.uploadMesh(sceneObject.mesh);
+        sceneObjects.push_back(scene_object);
+
+        GLuint vao = renderer.uploadMesh(scene_object.mesh);
+        VAOs.push_back(vao);
+    }
 
     return true;
 }
@@ -113,7 +125,7 @@ void App::initCamera() {
     camera = Camera(position, up, target);
     camera.buildViewMatrix();
 
-    float fov = 44.0f * M_PI / 180.0f;
+    float fov = 100.0f * M_PI / 180.0f;
     float aspectRatio = 1.f;
     float near = 0.1f;
     float far = 100.f;
